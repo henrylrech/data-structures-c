@@ -23,7 +23,6 @@ class PersonNode:
         self.data: Person | None = data
         self.next: PersonNode | None = None
 
-# Create a LinkedList class
 class LinkedList:
     def __init__(self):
         self.head: FlightNode | PersonNode = None
@@ -74,12 +73,13 @@ class LinkedList:
         
         if flight.queue.head is None:
             flight.queue.head = new_node
+            printInfo(f'enfileirado pessoa: {person.name} no voo: {flight_code}')
             return
         else:
             new_node.next = flight.queue.head
             flight.queue.head = new_node
 
-        printInfo(f'enfileirado pessoa: {person.name}')
+        printInfo(f'enfileirado pessoa: {person.name} no voo: {flight_code}')
 
     def dequeuePerson(self, flight_code: str):
         flight = self._findFlight(flight_code)
@@ -94,7 +94,7 @@ class LinkedList:
         while(aux != None and aux.next.next != None):
             aux = aux.next
 
-        printInfo(f'desenfileirado pessoa: {aux.next.data.name}')
+        printInfo(f'desenfileirado pessoa: {aux.next.data.name} no voo: {flight_code}')
         aux.next = None
 
     def removeFlight(self, flight_code: str):
@@ -110,6 +110,7 @@ class LinkedList:
                 return
 
             self.head = self.head.next
+            printInfo(f'removido voo: {flight_code}')
             return
 
         # percorre a linkedlist
@@ -117,7 +118,7 @@ class LinkedList:
             aux = aux.next
 
         if aux == None:
-            printInfo(f'nao foi encontrado voo com codigo {flight_code}')
+            printInfo(f'Não foi encontrado voo com codigo {flight_code}')
             return
         else:
             printInfo(f'removido voo: {flight_code}')
@@ -137,11 +138,27 @@ class LinkedList:
         aux = self.head
 
         if aux == None:
+            printInfo(f'Não foi encontrado voo')
             return False
         
         res = "Voos: "
         while aux != None:
             res = res + aux.data.code + ", "
+            aux = aux.next
+
+        print(res[:-2])
+        return True
+
+    def printAirportCodes(self) -> bool:
+        aux = self.head
+        
+        if aux == None:
+            printInfo(f'Não foi encontrado voo')
+            return False
+
+        res = "Aeroportos: "
+        while aux != None:
+            res = res + aux.data.airport + ", "
             aux = aux.next
 
         print(res[:-2])
@@ -200,4 +217,11 @@ class LinkedList:
         aux = self.head
         while(aux):
             self.printQueue(aux.data.code)
+            aux = aux.next
+            
+    def printFlightsAirport(self, airport_code):
+        aux = self.head
+        while(aux):
+            if (aux.data.airport == airport_code):
+                self.printFlights(aux.data.code)
             aux = aux.next

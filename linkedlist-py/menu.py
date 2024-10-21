@@ -15,6 +15,7 @@ def Menu(linkedlist: LinkedList):
         print("8 - Voos sem fila de espera")
         print("9 - Consultar um único voo")
         print("10 - Listar todas as filas")
+        print("11 - Ver voos de certo aeroporto")
         print("0 - Sair")
         print("-"*25)
 
@@ -75,10 +76,17 @@ def Menu(linkedlist: LinkedList):
             if (ok == False):
                 print("Nenhum voo encontrado.")
                 continue
-            cod = input("Digite o código do voo")
+            cod = input("Digite o código do voo: \n")
             linkedlist.printFlights(cod)
             linkedlist.printQueue(cod)
 
         elif (x == "10"): # Listar todas as filas
             linkedlist.printAllQueues()
-            pass
+
+        elif (x == "11"): # Listar todos os voos de algum aeroporto
+            ok = linkedlist.printAirportCodes()
+            if (ok == False):
+                print("Nenhum voo encontrado.")
+                continue
+            cod = input("Digite o código do aeroporto para ver os voos: \n")
+            linkedlist.printFlightsAirport(cod)
