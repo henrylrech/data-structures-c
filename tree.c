@@ -34,43 +34,45 @@ void preordem(TNoA* a){
 
 
 TNoA *criaNo(char ch) {
-  TNoA *novo;
-  novo = (TNoA *) malloc(sizeof(TNoA));
-  novo->info = ch;
-  novo->esq = NULL;
-  novo->dir = NULL;
-  return novo;
+    TNoA *novo;
+    novo = (TNoA *) malloc(sizeof(TNoA));
+    novo->info = ch;
+    novo->esq = NULL;
+    novo->dir = NULL;
+    return novo;
 }
 
 void acha_nodo(TNoA* nodo, char ch, char* pos) {
-  if (nodo == NULL) {
-    return;
-  }
-  if (nodo->info == ch) {
-    printf("achou %c: caminho->%s\n", ch, pos);
-    return;
-  }
-  char posEsq[100], posDir[100];
-  strcpy(posEsq, pos);
-  strcpy(posDir, pos);
-  
-  strcat(posEsq, "->esq");
-  strcat(posDir, "->dir");
-  
-  acha_nodo(nodo->esq, ch, posEsq);
-  acha_nodo(nodo->dir, ch, posDir);
+    if (nodo == NULL) {
+      return;
+    }
+    if (nodo->info == ch) {
+      printf("achou %c: caminho->%s\n", ch, pos);
+      return;
+    }
+    char posEsq[100], posDir[100];
+    strcpy(posEsq, pos);
+    strcpy(posDir, pos);
+    
+    strcat(posEsq, "->e");
+    strcat(posDir, "->d");
+    
+    acha_nodo(nodo->esq, ch, posEsq);
+    acha_nodo(nodo->dir, ch, posDir);
 }
 
 int main(void) {
-  TNoA *raiz;
-  raiz = criaNo('A');
-  raiz->esq = criaNo('B');
-  raiz->dir = criaNo('C');
-  raiz->dir->esq = criaNo('D');
-  raiz->dir->dir = criaNo('E');
-  acha_nodo(raiz, 'A', "raiz");
-acha_nodo(raiz, 'B', "raiz");
-acha_nodo(raiz, 'C', "raiz");
-acha_nodo(raiz, 'D', "raiz");
-  acha_nodo(raiz, 'E', "raiz");
+    TNoA *raiz;
+    raiz = criaNo('A');
+    raiz->esq = criaNo('B');
+    raiz->dir = criaNo('C');
+    raiz->dir->esq = criaNo('D');
+    raiz->dir->dir = criaNo('E');
+    raiz->esq->dir = criaNo('F');
+    acha_nodo(raiz, 'A', "r");
+    acha_nodo(raiz, 'B', "r");
+    acha_nodo(raiz, 'C', "r");
+    acha_nodo(raiz, 'D', "r");
+    acha_nodo(raiz, 'E', "r");
+    acha_nodo(raiz, 'F', "r");
 };
